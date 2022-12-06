@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'constants/screensize.dart';
+import 'package:noteliness/screens/splash_screen.dart';
 
 void main() => runApp(_Noteliness());
 
@@ -11,32 +9,16 @@ class _Noteliness extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: home()
+      home: SplashScreen()
     );
   }
 }
 
-class home extends StatefulWidget{
-  @override
-  State<home> createState() => _homeState();
-  
-}
-
-class _homeState extends State<home> {
+class ScreenController extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-   return Container(
-     color: const Color(0xFF313131),
-     child: const Scaffold(
-           backgroundColor: Colors.transparent,
-           body: Center(
-               child: SizedBox(
-                 child: kIsWeb?RiveAnimation.asset('assets/intro_web.riv'):RiveAnimation.asset('assets/intro_mobile.riv'),
-               ),
-           ),
-     ),
-   );
+    // TODO: implement build
+    throw UnimplementedError();
   }
+  
 }
-
