@@ -4,6 +4,7 @@ import 'package:rive/rive.dart';
 import 'dart:async';
 
 import 'package:noteliness/main.dart';
+import '../constants/colors.dart';
 import '../constants/screensize.dart';
 
 class SplashScreen extends StatefulWidget{
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>{
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      color: const Color(0xFF313131),
+      color: myColors.Background,
       child: const Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(

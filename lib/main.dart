@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'package:noteliness/screens/splash_screen.dart';
+import '../screens/splash_screen.dart';
+import '../router/router.dart';
 
-void main() => runApp(_Noteliness());
+void main() => runApp(_Noteliness(
+  router: Router(),
+));
 
 class _Noteliness extends StatelessWidget {
+  final Router router;
+  const _Noteliness({super.key,required this.router});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,11 +19,3 @@ class _Noteliness extends StatelessWidget {
   }
 }
 
-class ScreenController extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-  
-}
