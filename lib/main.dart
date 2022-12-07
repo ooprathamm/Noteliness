@@ -1,42 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'constants/screensize.dart';
+import '../screens/splash_screen.dart';
+import '../router/router.dart';
 
-void main() => runApp(_Noteliness());
+void main() => runApp(_Noteliness(
+  router: Router(),
+));
 
 class _Noteliness extends StatelessWidget {
+  final Router router;
+  const _Noteliness({super.key,required this.router});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: home()
+      home: SplashScreen()
     );
-  }
-}
-
-class home extends StatefulWidget{
-  @override
-  State<home> createState() => _homeState();
-  
-}
-
-class _homeState extends State<home> {
-  @override
-  Widget build(BuildContext context) {
-    SizeConfig().init(context);
-   return Container(
-     color: const Color(0xFF313131),
-     child: const Scaffold(
-           backgroundColor: Colors.transparent,
-           body: Center(
-               child: SizedBox(
-                 child: kIsWeb?RiveAnimation.asset('assets/intro_web.riv'):RiveAnimation.asset('assets/intro_mobile.riv'),
-               ),
-           ),
-     ),
-   );
   }
 }
 
