@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
-import '../constants/strings.dart';
 import '../widgets/appbar.dart';
 import '../widgets/floating_button.dart';
 import '../widgets/info_dialogue.dart';
@@ -117,7 +116,7 @@ class _WallScreenState extends State<WallScreen>{
           fillColor: myColors.Grey,
           hintText: 'Search by the keyword...',
           hintStyle: GoogleFonts.nunito(
-              color: MyColors.myWhite,
+              color: myColors.White,
               fontWeight: FontWeight.normal,
               fontSize: 16),
           contentPadding:
@@ -153,14 +152,8 @@ class _WallScreenState extends State<WallScreen>{
                 : searchedForNotes[index]['title'],
             data: _searchTextController.text.isEmpty
                 ? notes[index]['data']
-                : searchedForNotes[index]['data'],
-            onPressed: () => Navigator.pushNamed(
-              context,
-              noteScreen,
-              arguments: _searchTextController.text.isEmpty
-                  ? notes[index]
-                  : searchedForNotes[index],
-            ),
+                : searchedForNotes[index]['data'], onPressed: () {  },
+
           );
         },
       ),
@@ -170,8 +163,42 @@ class _WallScreenState extends State<WallScreen>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      backgroundColor: myColors.DarkGrey,
+      floatingActionButton: MyFloatingButton(
+        clk: () {
+          //Navigator.pushNamed(context, addNoteScreen);
+        },
+        icon: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            _isSearch ? roundedSearchInput() : myMainAppBar(),
+            FutureBuilder(
+              //future: NoteProvider.getNotesList(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  notes = snapshot.data;
+                  if (_searchTextController.text.isEmpty & notes.isEmpty) {
+                    return const NoNotesWidget();
+                  } else if (_searchTextController.text.isNotEmpty &
+                  searchedForNotes.isEmpty) {
+                    return const NoteNotFound();
+                  } else {
+                    return buildListView();
+                  }
+                } else {
+                  return const MyProgressBar();
+                }
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
-  

@@ -22,10 +22,10 @@ class MyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void saveChanges() {
-      id == -1
-          ? NoteProvider.insertNote({'title': title, 'data': data})
-          : NoteProvider.updateNote({'id': id, 'title': title, 'data': data});
-      Navigator.pushNamedAndRemoveUntil(context, mainScreen, (route) => false);
+      //id == -1
+          //? NoteProvider.insertNote({'title': title, 'data': data})
+          //: NoteProvider.updateNote({'id': id, 'title': title, 'data': data});
+      //Navigator.pushNamedAndRemoveUntil(context, mainScreen, (route) => false);
     }
 
     return Dialog(
@@ -35,7 +35,7 @@ class MyDialog extends StatelessWidget {
         width: 330,
         height: 236,
         decoration: BoxDecoration(
-          color: MyColors.myDarkGrey,
+          color: myColors.DarkGrey,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
@@ -45,7 +45,7 @@ class MyDialog extends StatelessWidget {
             const Icon(
               Icons.info,
               size: 36,
-              color: MyColors.myInfoIcon,
+              color: myColors.InfoIcon,
             ),
             const SizedBox(
               height: 15,
@@ -57,7 +57,7 @@ class MyDialog extends StatelessWidget {
                 titleText,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.nunito(
-                  color: MyColors.myLightGrey,
+                  color: myColors.LightGrey,
                   fontWeight: FontWeight.normal,
                   fontSize: 23,
                 ),
@@ -72,12 +72,12 @@ class MyDialog extends StatelessWidget {
                 MyBtn(
                   text: "Discard",
                   onPressed: () {
-                    text == 'Save'
-                        ? Navigator.of(context).pop()
-                        : Navigator.pushNamedAndRemoveUntil(
-                            context, mainScreen, (route) => false);
+                    //text == 'Save'
+                        //? Navigator.of(context).pop()
+                        //: Navigator.pushNamedAndRemoveUntil(
+                            //context, mainScreen, (route) => false);
                   },
-                  color: MyColors.myRed,
+                  color: myColors.Red,
                 ),
                 MyBtn(
                   text: text,
@@ -86,7 +86,7 @@ class MyDialog extends StatelessWidget {
                         ? saveChanges()
                         : Navigator.of(context).pop();
                   },
-                  color: MyColors.myGreen,
+                  color: myColors.Green,
                 ),
               ],
             )
@@ -111,7 +111,7 @@ class DeleteDialog extends StatelessWidget {
         width: 330,
         height: 236,
         decoration: BoxDecoration(
-          color: MyColors.myDarkGrey,
+          color: myColors.DarkGrey,
           borderRadius: BorderRadius.circular(20.0),
         ),
         child: Column(
@@ -121,7 +121,7 @@ class DeleteDialog extends StatelessWidget {
             const Icon(
               Icons.info,
               size: 36,
-              color: MyColors.myInfoIcon,
+              color: myColors.InfoIcon,
             ),
             const SizedBox(
               height: 15,
@@ -133,7 +133,7 @@ class DeleteDialog extends StatelessWidget {
                 "Are you sure ?",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.nunito(
-                  color: MyColors.myLightGrey,
+                  color: myColors.LightGrey,
                   fontWeight: FontWeight.normal,
                   fontSize: 23,
                 ),
@@ -148,18 +148,18 @@ class DeleteDialog extends StatelessWidget {
                 MyBtn(
                   text: "Delete",
                   onPressed: () {
-                    NoteProvider.deleteNote(id);
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, mainScreen, (route) => false);
+                    //NoteProvider.deleteNote(id);
+                    //Navigator.pushNamedAndRemoveUntil(
+                       // context, mainScreen, (route) => false);
                   },
-                  color: MyColors.myRed,
+                  color: myColors.Red,
                 ),
                 MyBtn(
                   text: "Discard",
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
-                  color: MyColors.myGrey,
+                  color: myColors.Grey,
                 ),
               ],
             )

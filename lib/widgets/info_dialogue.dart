@@ -23,18 +23,8 @@ class MyInfoDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const MyTitles(title: "Designed by", value: "Divya Kelaskar"),
-            const MyTitles(title: "Coded by", value: "Michael Maher"),
-            Container(
-              margin: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-              child: Text(
-                "© M-Code",
-                style: GoogleFonts.nunito(
-                    color: myColors.LightGrey,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 15),
-              ),
-            ),
+            const MyTitles(title: "Coded by", value: "Team Saty-riasis"),
+            Expanded(child: Image.asset('assets/images/logo.png'),)
           ],
         ),
       ),
