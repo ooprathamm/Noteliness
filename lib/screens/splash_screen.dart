@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:async';
 
-import 'package:noteliness/main.dart';
+import '../config/router.dart';
 import '../constants/colors.dart';
 import '../constants/screensize.dart';
 
@@ -18,11 +19,7 @@ class _SplashScreenState extends State<SplashScreen>{
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5),
-            ()=>Navigator.pushReplacement(context,
-            MaterialPageRoute(builder:
-                (context) => ScreenController()
-            )
-        )
+            ()=>GoRouter.of(context).go(AppRouter.wallscreen)
     );
   }
   @override
