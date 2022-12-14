@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
-//import '../provider/note_provider.dart';
+//import '../provider/wall_entry_provider.dart';
 
 class MyDialog extends StatelessWidget {
   final String text;
