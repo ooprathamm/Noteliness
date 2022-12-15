@@ -1,20 +1,20 @@
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class wall_entry{
-  String? ID = "id";
-  String? TITLE = "title";
+class wall_entry {
+  final String id;
+  final String title;
 
-  wall_entry({this.ID,this.TITLE});
-
-  Map<String,dynamic> createMap() {
+  wall_entry({required this.id,required this.title});
+  
+  Map<String,dynamic> toMap() {
     return {
-      'ID' : ID,
-      'TITLE' : TITLE
+      'id' : id,
+      'title': title
     };
   }
 
-   wall_entry.fromFirestore(Map<String,dynamic> firestoreMap):
-      ID = firestoreMap['ID'],
-      TITLE = firestoreMap['TITLE'];
+  wall_entry.fromDocumentSnapshot(DocumentSnapshot<Map<String,dynamic>> doc)
+    : id = doc['id'],
+      title = doc['title'];
+
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../provider/wall_entry_provider.dart';
 import '../constants/colors.dart';
 import '../widgets/appbar.dart';
 import '../widgets/floating_button.dart';
@@ -15,7 +16,8 @@ class WallScreen extends StatefulWidget{
   State<WallScreen> createState() => _WallScreenState();
   }
 
-class _WallScreenState extends State<WallScreen>{
+class _WallScreenState extends State<WallScreen> {
+  wall_entry_provider provider = wall_entry_provider();
   bool _isSearch = false;
   final _searchTextController = TextEditingController();
   List<Map<String,dynamic>> searchedForNotes = [];
@@ -167,7 +169,7 @@ class _WallScreenState extends State<WallScreen>{
       backgroundColor: myColors.DarkGrey,
       floatingActionButton: MyFloatingButton(
         clk: () {
-          //Navigator.pushNamed(context, addNoteScreen);
+          //Navigator.pushNamed(context, addW);
         },
         icon: const Icon(
           Icons.add,
@@ -179,7 +181,7 @@ class _WallScreenState extends State<WallScreen>{
           children: [
             _isSearch ? roundedSearchInput() : myMainAppBar(),
             FutureBuilder(
-              //future: NoteProvider.getNotesList(),
+              future: provider.getNotesList(),
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   notes = snapshot.data;
