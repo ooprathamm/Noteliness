@@ -10,12 +10,8 @@ class DatabaseServices{
     await _db.collection("wall_entries").add(entry.toMap());
   }
 
-  Future<void> updateEntry(wall_entry entry) async {
-    await _db.collection("wall_entries").doc(entry.id).update(entry.toMap());
-  }
-
   Future<void> deleteEntry(wall_entry entry) async {
-    await _db.collection("wall_entries").doc(entry.id).delete();
+    await _db.collection("wall_entries").doc(entry.title).delete();
   }
 
   Future<List<wall_entry>> retrieveEntries() async {
