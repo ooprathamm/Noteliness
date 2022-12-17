@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 import '../constants/colors.dart';
 import '../widgets/appbar.dart';
@@ -10,7 +13,8 @@ import '../widgets/text_field.dart';
 import 'package:noteliness/model/wall_entry.dart';
 
 class addWallScreenEntry extends StatelessWidget{
-  final ImagePicker _picker = ImagePicker();
+  final ImagePicker _imgPicker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -33,14 +37,24 @@ class addWallScreenEntry extends StatelessWidget{
                 const Padding(padding: EdgeInsets.fromLTRB(38,0,0,0)),
                 MyFloatingButton(
                   icon: const Icon(Icons.camera_alt),
-                  clk: () {  },
+                  clk: () {
+                    Uint8List? imageBytes = _imgPicker.pickImage(source: ImageSource.camera) as Uint8List?;
+                  },
                 ),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
                 MyFloatingButton(
-                  icon: const Icon(Icons.file_copy), clk: () {  },
+                  icon: const Icon(Icons.file_copy),
+                  clk: () async {
+                    FilePickerResult? result = await FilePicker.platform.pickFiles();
+                    if (result != null) {
+                      Uint8List? fileBytes = result.files.first.bytes;
+                    } else {
+                      // User canceled the picker
+                    }
+                },
                 ),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
-                MyFloatingButton(
+                MyCustomFloatingButton(
                   icon: const Icon(Icons.cancel),
                   clk: () {
                     Navigator.pop(context);
@@ -56,4 +70,37 @@ class addWallScreenEntry extends StatelessWidget{
   }
 }
 
+class MyCustomFloatingButton extends StatelessWidget {
+  final VoidCallback clk;
+  final Icon icon;
+
+  const MyCustomFloatingButton({super.key, required this.clk, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60.0,
+      height: 60.0,
+      decoration: const BoxDecoration(
+          color: myColors.DarkGrey,
+          borderRadius: BorderRadius.all(
+            Radius.circular(35.0),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black,
+              spreadRadius: 1,
+              blurRadius: 8,
+              offset: Offset(-2, 1),
+            )
+          ]),
+      child: FloatingActionButton(
+        backgroundColor: myColors.Green,
+        elevation: 8,
+        onPressed: clk,
+        child: icon,
+      ),
+    );
+  }
+}
 
