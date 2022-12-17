@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "357540309669",
+    "project_id": "noteliness-7cbfd",
+    "storage_bucket": "noteliness-7cbfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357540309669:android:5325361f337131c4757b4c",
+        "android_client_info": {
+          "package_name": "com.example.noteliness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357540309669-4lg17cvrcbtiv8lgm8r5geg8ltgkcom0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8lnVXlLS21GPkonI-QhVaBJX5y3DO5jY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357540309669-4lg17cvrcbtiv8lgm8r5geg8ltgkcom0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
