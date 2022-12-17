@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
 import '../config/router.dart';
 import 'firebase_options.dart';
+import 'package:noteliness/providers/wall_screen_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,11 +17,15 @@ void main() async {
 class _Noteliness extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MultiProvider(
+        providers:[
+          ChangeNotifierProvider(create: (_) => wallScreenProvider()),
+        ],
+    child: const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Noteliness',
       initialRoute: 'splash_screen',
-      onGenerateRoute: Routers.generateRoute,
+      onGenerateRoute: Routers.generateRoute),
     );
   }
 }

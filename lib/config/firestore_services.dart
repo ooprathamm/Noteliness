@@ -17,6 +17,6 @@ class DatabaseServices{
   Future<List<wall_entry>> retrieveEntries() async {
     QuerySnapshot<Map<String, dynamic>> snapshot = await _db.collection("wall_entries").get();
     return snapshot.docs
-        .map((docSnapshot) => wall_entry.fromDocumentSnapshot(docSnapshot)).toList();
+        .map((docSnapshot) => wall_entry.fromJson(docSnapshot.data())).toList();
   }
 }

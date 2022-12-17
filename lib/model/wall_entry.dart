@@ -10,7 +10,10 @@ class wall_entry {
     };
   }
 
-  wall_entry.fromDocumentSnapshot(DocumentSnapshot<Map<String,dynamic>> doc)
-    : title = doc['title'];
+  factory wall_entry.fromJson(Map<String, dynamic> json) {
+    return wall_entry(
+        title: json['title'],
+    );
+  }
 
 }

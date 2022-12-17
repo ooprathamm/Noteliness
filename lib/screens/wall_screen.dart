@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noteliness/screens/add_wall_screen_entry.dart';
 
 import '../constants/colors.dart';
 import '../widgets/appbar.dart';
@@ -167,7 +168,9 @@ class _WallScreenState extends State<WallScreen> {
       backgroundColor: myColors.DarkGrey,
       floatingActionButton: MyFloatingButton(
         clk: () {
-          //Navigator.pushNamed(context, addW);
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => addWallScreenEntry());
         },
         icon: const Icon(
           Icons.add,
