@@ -1,10 +1,11 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../constants/colors.dart';
 class Preview extends StatelessWidget{
-  final Uint8List file ;
+  final File file;
   const Preview({super.key, required this.file});
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -22,11 +23,10 @@ class Preview extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.memory(file)
+            Image.file(file)
           ],
         ),
       ),
     );
   }
-
 }
