@@ -11,6 +11,7 @@ class Routers {
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case 'wall_screen':
         return MaterialPageRoute(builder: (_) => WallScreen());
+
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

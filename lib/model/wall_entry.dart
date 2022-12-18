@@ -10,9 +10,9 @@ class wall_entry {
     };
   }
 
-  factory wall_entry.fromJson(Map<String, dynamic> json) {
+  factory wall_entry.fromMap(Map data) {
     return wall_entry(
-        title: json['title'],
+        title: data['title'],
     );
   }
 

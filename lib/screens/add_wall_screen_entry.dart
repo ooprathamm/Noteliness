@@ -11,6 +11,7 @@ import '../widgets/info_dialogue.dart';
 import '../widgets/my_dialog.dart';
 import '../widgets/text_field.dart';
 import 'package:noteliness/model/wall_entry.dart';
+import '../screens/preview.dart';
 
 class addWallScreenEntry extends StatelessWidget{
   final ImagePicker _imgPicker = ImagePicker();
@@ -38,7 +39,10 @@ class addWallScreenEntry extends StatelessWidget{
                 MyFloatingButton(
                   icon: const Icon(Icons.camera_alt),
                   clk: () {
-                    Uint8List? imageBytes = _imgPicker.pickImage(source: ImageSource.camera) as Uint8List?;
+                    Uint8List imageBytes = _imgPicker.pickImage(source: ImageSource.camera) as Uint8List;
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => Preview(file: imageBytes!));
                   },
                 ),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
@@ -48,6 +52,10 @@ class addWallScreenEntry extends StatelessWidget{
                     FilePickerResult? result = await FilePicker.platform.pickFiles();
                     if (result != null) {
                       Uint8List? fileBytes = result.files.first.bytes;
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => Preview(file: fileBytes!));
+                      Preview(file: fileBytes!);
                     } else {
                       // User canceled the picker
                     }
@@ -69,6 +77,8 @@ class addWallScreenEntry extends StatelessWidget{
     );
   }
 }
+
+
 
 class MyCustomFloatingButton extends StatelessWidget {
   final VoidCallback clk;
