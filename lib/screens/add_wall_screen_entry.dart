@@ -34,7 +34,7 @@ class addWallScreenEntry extends StatelessWidget{
           children: [
             Row(
               children: [
-                const Padding(padding: EdgeInsets.fromLTRB(38,0,0,0)),
+                const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
                 MyFloatingButton(
                   icon: const Icon(Icons.camera_alt),
                   clk: () async {
@@ -67,6 +67,7 @@ class addWallScreenEntry extends StatelessWidget{
                     Navigator.pop(context);
                   },
                 ),
+                const Padding(padding: EdgeInsets.fromLTRB(0,0,25,0)),
               ],
             ),
             const Padding(padding: EdgeInsets.fromLTRB(25,25,0,0)),
