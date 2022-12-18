@@ -11,10 +11,10 @@ import '../widgets/info_dialogue.dart';
 import '../widgets/my_dialog.dart';
 import '../widgets/text_field.dart';
 import 'package:noteliness/model/wall_entry.dart';
+import '../screens/preview.dart';
 
 class addWallScreenEntry extends StatelessWidget{
   final ImagePicker _imgPicker = ImagePicker();
-
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -37,8 +37,12 @@ class addWallScreenEntry extends StatelessWidget{
                 const Padding(padding: EdgeInsets.fromLTRB(38,0,0,0)),
                 MyFloatingButton(
                   icon: const Icon(Icons.camera_alt),
-                  clk: () {
-                    Uint8List? imageBytes = _imgPicker.pickImage(source: ImageSource.camera) as Uint8List?;
+                  clk: () async {
+                    final XFile? image = await _imgPicker.pickImage(source: ImageSource.camera);
+                    File photofile = File(image!.path);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) => Preview(file: photofile));
                   },
                 ),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
@@ -47,7 +51,10 @@ class addWallScreenEntry extends StatelessWidget{
                   clk: () async {
                     FilePickerResult? result = await FilePicker.platform.pickFiles();
                     if (result != null) {
-                      Uint8List? fileBytes = result.files.first.bytes;
+                      File pickedFile = File(result!.files.single.path.toString());
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) => Preview(file: pickedFile));
                     } else {
                       // User canceled the picker
                     }
@@ -69,6 +76,8 @@ class addWallScreenEntry extends StatelessWidget{
     );
   }
 }
+
+
 
 class MyCustomFloatingButton extends StatelessWidget {
   final VoidCallback clk;
