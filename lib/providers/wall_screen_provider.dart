@@ -14,6 +14,7 @@ class wallScreenProvider extends ChangeNotifier{
 
   Future<void> addEntry() async {
     service.addEntry(_entry);
+    notifyListeners();
   }
 
   Future<void> getEntries() async {

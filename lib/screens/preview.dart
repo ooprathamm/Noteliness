@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 import '../widgets/text_field.dart';
-import '../widgets/floating_button.dart';
 
 class Preview extends StatefulWidget{
   final File file;
@@ -32,7 +31,9 @@ class _PreviewState extends State<Preview> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: Image.file(widget.file)),
+            Expanded(
+                child: Image.file(widget.file)
+            ),
             const Padding(padding: EdgeInsets.fromLTRB(0,10,0,0)),
             MyTextField(
               hintText: "Title...",
