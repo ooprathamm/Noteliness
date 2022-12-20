@@ -12,13 +12,12 @@ class wallScreenProvider extends ChangeNotifier{
   List<wall_entry> get entires => _entries;
   wall_entry get entry => _entry;
 
-  Future<void> addEntry() async {
-    service.addEntry(_entry);
-    notifyListeners();
+  Future<bool> addEntry({required wall_entry entry}) async {
+    service.addEntry(entry);
+    return true;
   }
 
-  Future<void> getEntries() async {
-    service.retrieveEntries();
-    notifyListeners();
+  Future<List<wall_entry>> getEntries() async {
+    return await service.retrieveEntries();
   }
 }

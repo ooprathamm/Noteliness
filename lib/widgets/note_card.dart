@@ -5,12 +5,10 @@ import '../constants/colors.dart';
 
 class NoteCard extends StatelessWidget {
   final String text;
-  final String data;
   final Function() onPressed;
 
   const NoteCard(
       {required this.text,
-      required this.data,
       required this.onPressed,
       Key? key})
       : super(key: key);
@@ -39,16 +37,6 @@ class NoteCard extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-          ),
-          subtitle: Text(
-            data,
-            textAlign: isRTL(data) ? TextAlign.right : TextAlign.left,
-            maxLines: null,
-            softWrap: true,
-            style: const TextStyle(
-                color: myColors.White,
-                fontWeight: FontWeight.normal,
-                fontSize: 14),
           ),
         ),
       ),

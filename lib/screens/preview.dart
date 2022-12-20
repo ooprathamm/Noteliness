@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:noteliness/config/firestore_services.dart';
+import 'package:noteliness/model/wall_entry.dart';
+import 'package:noteliness/providers/wall_screen_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../widgets/text_field.dart';
-
 class Preview extends StatefulWidget{
   final File file;
   const Preview({super.key, required this.file});
@@ -13,8 +16,10 @@ class Preview extends StatefulWidget{
 }
 
 class _PreviewState extends State<Preview> {
+  final DatabaseServices services =DatabaseServices();
   @override
   Widget build(BuildContext context) {
+    final wallentryProvider = Provider.of<wallScreenProvider>(context);
     TextEditingController titleController = TextEditingController();
     return Dialog(
       elevation: 1,
@@ -45,8 +50,16 @@ class _PreviewState extends State<Preview> {
               children: [
                 const Padding(padding: EdgeInsets.fromLTRB(90,0,0,0)),
                 MyCustomFloatingButton1(
-                    icon: const Icon(Icons.done), clk: () {
-
+                    icon: const Icon(Icons.done), clk: () async {
+                      wall_entry entry = wall_entry(title: titleController.text);
+                      bool success = await wallentryProvider.addEntry(entry: entry);
+                      if(success) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entry was recorded!'),));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Some error occured'),));
+                      }
+                      Navigator.pushNamed(context, 'wall_screen');
+                      print("Added to entries!");
                 }),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
                 MyCustomFloatingButton2(

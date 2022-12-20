@@ -14,7 +14,7 @@ import '../widgets/progress_bar.dart';
 class WallScreen extends StatefulWidget{
   @override
   State<WallScreen> createState() => _WallScreenState();
-  }
+}
 
 class _WallScreenState extends State<WallScreen> {
   bool _isSearch = false;
@@ -168,9 +168,9 @@ class _WallScreenState extends State<WallScreen> {
       backgroundColor: myColors.DarkGrey,
       floatingActionButton: MyFloatingButton(
         clk: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => addWallScreenEntry());
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => addWallScreenEntry());
         },
         icon: const Icon(
           Icons.add,
