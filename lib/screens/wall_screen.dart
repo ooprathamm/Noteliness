@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:noteliness/model/wall_entry.dart';
+import 'package:noteliness/providers/wall_screen_provider.dart';
 import 'package:noteliness/screens/add_wall_screen_entry.dart';
+import 'package:provider/provider.dart';
 
 import '../constants/colors.dart';
 import '../widgets/appbar.dart';
@@ -14,41 +17,11 @@ import '../widgets/progress_bar.dart';
 class WallScreen extends StatefulWidget{
   @override
   State<WallScreen> createState() => _WallScreenState();
-  }
+}
 
 class _WallScreenState extends State<WallScreen> {
-  bool _isSearch = false;
-  final _searchTextController = TextEditingController();
-  List<Map<String,dynamic>> searchedForNotes = [];
-  List<Map<String,dynamic>> notes =[];
-
-  void addSearchedForNotesToList(String searchedNotes) {
-    searchedForNotes = notes
-        .where((note) => note['title'].toLowerCase().startsWith(searchedNotes))
-        .toList();
-    setState(() {});
-  }
-
-  void _clearSearch() {
-    setState(() {
-      _searchTextController.clear();
-    });
-  }
-  void _startSearch() {
-    ModalRoute.of(context)!
-        .addLocalHistoryEntry(LocalHistoryEntry(onRemove: _stopSearching));
-    setState(() {
-      _isSearch = true;
-    });
-  }
-
-  void _stopSearching() {
-    _clearSearch();
-    setState(() {
-      _isSearch = false;
-    });
-  }
-
+  Future<List<wall_entry>>? notes;
+  TextEditingController _searchTextController = TextEditingController();
   Widget myMainAppBar() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -66,7 +39,7 @@ class _WallScreenState extends State<WallScreen> {
               MyButton(
                 icon: const Icon(Icons.search_outlined),
                 click: () {
-                  _startSearch();
+
                 },
               ),
               const SizedBox(
@@ -94,7 +67,6 @@ class _WallScreenState extends State<WallScreen> {
       child: TextField(
         controller: _searchTextController,
         onChanged: (searchedNotes) {
-          addSearchedForNotesToList(searchedNotes);
         },
         style: GoogleFonts.nunito(
             color: myColors.White,
@@ -104,9 +76,7 @@ class _WallScreenState extends State<WallScreen> {
         decoration: InputDecoration(
           suffixIcon: IconButton(
             onPressed: () {
-              _searchTextController.text.isEmpty
-                  ? Navigator.pop(context)
-                  : _clearSearch();
+
             },
             icon: const Icon(
               Icons.clear,
@@ -137,40 +107,18 @@ class _WallScreenState extends State<WallScreen> {
     );
   }
 
-  Widget buildListView() {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: _searchTextController.text.isEmpty
-            ? notes.length
-            : searchedForNotes.length,
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          return NoteCard(
-            text: _searchTextController.text.isEmpty
-                ? notes[index]['title']
-                : searchedForNotes[index]['title'],
-            data: _searchTextController.text.isEmpty
-                ? notes[index]['data']
-                : searchedForNotes[index]['data'], onPressed: () {  },
-
-          );
-        },
-      ),
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
+    wallScreenProvider provider = Provider.of<wallScreenProvider>(context);
+    notes = wallScreenProvider().getEntries();
     return Scaffold(
       backgroundColor: myColors.DarkGrey,
       floatingActionButton: MyFloatingButton(
         clk: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) => addWallScreenEntry());
+          showDialog(
+              context: context,
+              builder: (BuildContext context) => addWallScreenEntry());
         },
         icon: const Icon(
           Icons.add,
@@ -180,19 +128,25 @@ class _WallScreenState extends State<WallScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            _isSearch ? roundedSearchInput() : myMainAppBar(),
+            myMainAppBar(),
             FutureBuilder(
-              //future: provider.getNotesList(),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  notes = snapshot.data;
-                  if (_searchTextController.text.isEmpty & notes.isEmpty) {
-                    return const NoNotesWidget();
-                  } else if (_searchTextController.text.isNotEmpty &
-                  searchedForNotes.isEmpty) {
+              future: notes as Future<List<wall_entry>>,
+              builder: (BuildContext context, AsyncSnapshot<List<wall_entry>> notes) {
+                if (notes.hasData) {
+                  if (_searchTextController.text.isNotEmpty) {
                     return const NoteNotFound();
                   } else {
-                    return buildListView();
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: notes.data?.length,
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return NoteCard(entry: notes.data![index]);
+                        },
+                      ),
+                    );
                   }
                 } else {
                   return const MyProgressBar();

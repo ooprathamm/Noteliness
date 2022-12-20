@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:noteliness/model/wall_entry.dart';
 
 import '../constants/colors.dart';
 
 class NoteCard extends StatelessWidget {
-  final String text;
-  final String data;
-  final Function() onPressed;
+  final wall_entry entry;
 
-  const NoteCard(
-      {required this.text,
-      required this.data,
-      required this.onPressed,
-      Key? key})
-      : super(key: key);
-
+  const NoteCard({super.key, required this.entry});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,13 +18,12 @@ class NoteCard extends StatelessWidget {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.5)),
         color: myColors.Grey,
         child: ListTile(
-          onTap: onPressed,
+          onTap: (){},
           contentPadding: const EdgeInsets.all(15),
           title: Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
             child: Text(
-              text,
-              textAlign: isRTL(text) ? TextAlign.right : TextAlign.left,
+              entry.title,
               softWrap: true,
               style: const TextStyle(
                 color: myColors.White,
@@ -40,22 +32,8 @@ class NoteCard extends StatelessWidget {
               ),
             ),
           ),
-          subtitle: Text(
-            data,
-            textAlign: isRTL(data) ? TextAlign.right : TextAlign.left,
-            maxLines: null,
-            softWrap: true,
-            style: const TextStyle(
-                color: myColors.White,
-                fontWeight: FontWeight.normal,
-                fontSize: 14),
-          ),
         ),
       ),
     );
   }
-}
-
-bool isRTL(String text) {
-  return intl.Bidi.detectRtlDirectionality(text);
 }

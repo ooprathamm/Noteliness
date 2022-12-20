@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA59O29VKLPF2yOePBqcMBAuoRPCHSD-Jk',
-    appId: '1:357540309669:web:349781d85fc4e0a3757b4c',
-    messagingSenderId: '357540309669',
-    projectId: 'noteliness-7cbfd',
-    authDomain: 'noteliness-7cbfd.firebaseapp.com',
-    storageBucket: 'noteliness-7cbfd.appspot.com',
-    measurementId: 'G-1NZZ2ECW6H',
+    apiKey: 'AIzaSyC2-F_XejGj-kDPz_3hAX2zVaL11RxwokY',
+    appId: '1:880635326074:web:8fff15241e73b58e9b55c3',
+    messagingSenderId: '880635326074',
+    projectId: 'noteliness-6ede0',
+    authDomain: 'noteliness-6ede0.firebaseapp.com',
+    storageBucket: 'noteliness-6ede0.appspot.com',
+    measurementId: 'G-F10VY5CTJV',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA8lnVXlLS21GPkonI-QhVaBJX5y3DO5jY',
-    appId: '1:357540309669:android:5325361f337131c4757b4c',
-    messagingSenderId: '357540309669',
-    projectId: 'noteliness-7cbfd',
-    storageBucket: 'noteliness-7cbfd.appspot.com',
+    apiKey: 'AIzaSyC5OxItJ0B7fRcpDQwRCzCG6Blo4MS74N4',
+    appId: '1:880635326074:android:d071c794380fae8a9b55c3',
+    messagingSenderId: '880635326074',
+    projectId: 'noteliness-6ede0',
+    storageBucket: 'noteliness-6ede0.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyALy1n3M7rtfDOsrb02jBBKcvXXD6_p7C0',
-    appId: '1:357540309669:ios:faf0848a5b85dc46757b4c',
-    messagingSenderId: '357540309669',
-    projectId: 'noteliness-7cbfd',
-    storageBucket: 'noteliness-7cbfd.appspot.com',
-    iosClientId: '357540309669-p53h351dhlimmvgjcrpo4o9ohvdbk56k.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCs_03iHw0Vy2CwhNUvEhac5STHpI0gJ_E',
+    appId: '1:880635326074:ios:ec190cdc8592ba3a9b55c3',
+    messagingSenderId: '880635326074',
+    projectId: 'noteliness-6ede0',
+    storageBucket: 'noteliness-6ede0.appspot.com',
+    iosClientId: '880635326074-hcq05lfu509lmmu2srud08o0okaq7s8c.apps.googleusercontent.com',
     iosBundleId: 'com.example.noteliness',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyALy1n3M7rtfDOsrb02jBBKcvXXD6_p7C0',
-    appId: '1:357540309669:ios:faf0848a5b85dc46757b4c',
-    messagingSenderId: '357540309669',
-    projectId: 'noteliness-7cbfd',
-    storageBucket: 'noteliness-7cbfd.appspot.com',
-    iosClientId: '357540309669-p53h351dhlimmvgjcrpo4o9ohvdbk56k.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCs_03iHw0Vy2CwhNUvEhac5STHpI0gJ_E',
+    appId: '1:880635326074:ios:ec190cdc8592ba3a9b55c3',
+    messagingSenderId: '880635326074',
+    projectId: 'noteliness-6ede0',
+    storageBucket: 'noteliness-6ede0.appspot.com',
+    iosClientId: '880635326074-hcq05lfu509lmmu2srud08o0okaq7s8c.apps.googleusercontent.com',
     iosBundleId: 'com.example.noteliness',
   );
 }
