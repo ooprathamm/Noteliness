@@ -9,7 +9,6 @@ import '../constants/colors.dart';
 import '../widgets/appbar.dart';
 import '../widgets/floating_button.dart';
 import '../widgets/info_dialogue.dart';
-import '../widgets/no_notes.dart';
 import '../widgets/note_card.dart';
 import '../widgets/note_not_found.dart';
 import '../widgets/progress_bar.dart';

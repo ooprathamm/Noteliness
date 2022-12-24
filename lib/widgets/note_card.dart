@@ -22,14 +22,24 @@ class NoteCard extends StatelessWidget {
           contentPadding: const EdgeInsets.all(15),
           title: Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-            child: Text(
-              entry.title,
-              softWrap: true,
-              style: const TextStyle(
-                color: myColors.White,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+            child: Column(
+              children:[
+                SizedBox(
+                  child: Image.network(entry.file_url),
+                  height: 175,
+                  width: 300,
+                ),
+                Padding(padding: const EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                Text(
+                  entry.title,
+                  softWrap: true,
+                  style: const TextStyle(
+                    color: myColors.White,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ]
             ),
           ),
         ),

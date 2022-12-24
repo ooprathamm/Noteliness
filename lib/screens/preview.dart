@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:noteliness/config/firestore_services.dart';
 import 'package:noteliness/model/wall_entry.dart';
 import 'package:noteliness/providers/wall_screen_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart';
 
 import '../constants/colors.dart';
 import '../widgets/text_field.dart';
@@ -17,6 +19,7 @@ class Preview extends StatefulWidget{
 
 class _PreviewState extends State<Preview> {
   final DatabaseServices services =DatabaseServices();
+  late String _uploadedFileURL;
   @override
   Widget build(BuildContext context) {
     final wallentryProvider = Provider.of<wallScreenProvider>(context);
@@ -50,8 +53,18 @@ class _PreviewState extends State<Preview> {
               children: [
                 const Padding(padding: EdgeInsets.fromLTRB(90,0,0,0)),
                 MyCustomFloatingButton1(
-                    icon: const Icon(Icons.done), clk: () async {
-                      wall_entry entry = wall_entry(title: titleController.text);
+                    icon: const Icon(Icons.done),
+                    clk: () async {
+                      String fileName = basename(widget.file.path);
+                      var storageReference = await FirebaseStorage.instance.ref().child('wall_entries/$fileName');
+                      await storageReference.putFile(widget.file);
+                      storageReference.getDownloadURL().then((value) {
+                        setState(() {
+                          _uploadedFileURL= value;
+                          print(value);
+                        });
+                      });
+                      wall_entry entry = wall_entry(title: titleController.text,file_url: _uploadedFileURL);
                       bool success = await wallentryProvider.addEntry(entry: entry);
                       if(success) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Entry was recorded!'),));
@@ -59,7 +72,6 @@ class _PreviewState extends State<Preview> {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Some error occured'),));
                       }
                       Navigator.pushNamed(context, 'wall_screen');
-                      print("Added to entries!");
                 }),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
                 MyCustomFloatingButton2(
