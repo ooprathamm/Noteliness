@@ -19,7 +19,15 @@ class Preview extends StatefulWidget{
 
 class _PreviewState extends State<Preview> {
   final DatabaseServices services =DatabaseServices();
-  late String _uploadedFileURL;
+  String _uploadedFileURL = "";
+  late bool _isButtonDisabled;
+
+  @override
+  void initState() {
+    super.initState();
+    _isButtonDisabled=false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final wallentryProvider = Provider.of<wallScreenProvider>(context);
@@ -44,7 +52,7 @@ class _PreviewState extends State<Preview> {
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0,10,0,0)),
             MyTextField(
-              hintText: "Title...",
+              hintText:  _isButtonDisabled ?"Uploading...":"Title...",
               fontSize: 22,
               controller: titleController,
             ),
@@ -53,15 +61,18 @@ class _PreviewState extends State<Preview> {
               children: [
                 const Padding(padding: EdgeInsets.fromLTRB(90,0,0,0)),
                 MyCustomFloatingButton1(
-                    icon: const Icon(Icons.done),
-                    clk: () async {
+                    icon:  _isButtonDisabled ?const Icon(Icons.cloud_upload):const Icon(Icons.done),
+                    clk:  _isButtonDisabled ?(){}:() async {
+
+                      setState(() {
+                        _isButtonDisabled = true;
+                      });
                       String fileName = basename(widget.file.path);
                       var storageReference = await FirebaseStorage.instance.ref().child('wall_entries/$fileName');
                       await storageReference.putFile(widget.file);
-                      storageReference.getDownloadURL().then((value) {
+                      await storageReference.getDownloadURL().then((value) {
                         setState(() {
                           _uploadedFileURL= value;
-                          print(value);
                         });
                       });
                       wall_entry entry = wall_entry(title: titleController.text,file_url: _uploadedFileURL);
