@@ -9,7 +9,6 @@ import '../constants/colors.dart';
 import '../widgets/appbar.dart';
 import '../widgets/floating_button.dart';
 import '../widgets/info_dialogue.dart';
-import '../widgets/no_notes.dart';
 import '../widgets/note_card.dart';
 import '../widgets/note_not_found.dart';
 import '../widgets/progress_bar.dart';
@@ -137,14 +136,24 @@ class _WallScreenState extends State<WallScreen> {
                     return const NoteNotFound();
                   } else {
                     return Expanded(
-                      child: ListView.builder(
-                        itemCount: notes.data?.length,
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return NoteCard(entry: notes.data![index]);
+                      child: RefreshIndicator(
+                        backgroundColor: myColors.Grey,
+                        color: myColors.White,
+                        onRefresh: () async {
+                          setState(() {
+
+                          });
                         },
+                        child: ListView.builder(
+                          itemCount: notes.data?.length,
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                          shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            var reversedList = notes.data?.reversed.toList();
+                            return NoteCard(entry: reversedList![index]);
+                          },
+                        ),
                       ),
                     );
                   }
