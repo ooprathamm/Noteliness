@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:noteliness/model/wall_entry.dart';
 import 'package:noteliness/widgets/progress_bar.dart';
@@ -23,11 +24,13 @@ class NoteCard extends StatelessWidget {
           onTap: () async {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_)=>InstaImageViewer(
+                builder: (_)=>FullScreenWidget(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
-                    child: Image.network(
-                      entry.file_url,
+                    child: CachedNetworkImage(
+                      imageUrl: entry.file_url,
+                      placeholder: (context, url) => const Center(child: SizedBox(height: 35,width: 35,child: MyProgressBar())),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                   ),
                 )
