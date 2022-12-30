@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:noteliness/model/wall_entry.dart';
+import 'package:noteliness/widgets/progress_bar.dart';
 
 import '../constants/colors.dart';
 
@@ -41,9 +42,18 @@ class NoteCard extends StatelessWidget {
                 Container(
                   height: 200,
                   width: 355,
-                  child: FittedBox(
-                    child: Image.network(entry.file_url),
-                    fit: BoxFit.fill,
+                  child: CachedNetworkImage(
+                    imageUrl: entry.file_url,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
+                            ),
+                      ),
+                    ),
+                    placeholder: (context, url) => const Center(child: SizedBox(height: 35,width: 35,child: MyProgressBar())),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
                 Padding(padding: const EdgeInsets.fromLTRB(0, 10, 0, 0)),

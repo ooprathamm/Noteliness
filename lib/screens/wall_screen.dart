@@ -141,6 +141,7 @@ class _WallScreenState extends State<WallScreen> {
                         color: myColors.White,
                         onRefresh: () async {
                           setState(() {
+
                           });
                         },
                         child: ListView.builder(
