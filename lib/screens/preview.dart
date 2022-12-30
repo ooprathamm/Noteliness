@@ -83,6 +83,7 @@ class _PreviewState extends State<Preview> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Some error occured'),));
                       }
+
                       Navigator.pushNamed(context, 'wall_screen');
                 }),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),

@@ -145,13 +145,13 @@ class _WallScreenState extends State<WallScreen> {
                           });
                         },
                         child: ListView.builder(
-                          reverse: true,
                           itemCount: notes.data?.length,
                           physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            return NoteCard(entry: notes.data![index]);
+                            var reversedList = notes.data?.reversed.toList();
+                            return NoteCard(entry: reversedList![index]);
                           },
                         ),
                       ),
