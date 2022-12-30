@@ -145,6 +145,7 @@ class _WallScreenState extends State<WallScreen> {
                           });
                         },
                         child: ListView.builder(
+                          reverse: true,
                           itemCount: notes.data?.length,
                           physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),

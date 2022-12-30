@@ -52,6 +52,7 @@ class _PreviewState extends State<Preview> {
             ),
             const Padding(padding: EdgeInsets.fromLTRB(0,10,0,0)),
             MyTextField(
+
               hintText:  _isButtonDisabled ?"Uploading...":"Title...",
               fontSize: 22,
               controller: titleController,
