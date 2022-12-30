@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:noteliness/model/wall_entry.dart';
 
 import '../constants/colors.dart';
@@ -21,14 +22,11 @@ class NoteCard extends StatelessWidget {
           onTap: () async {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
-                builder: (_)=>FullScreenWidget(
-                  child: Hero(
-                    tag: "customTag",
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        entry.file_url,
-                      ),
+                builder: (_)=>InstaImageViewer(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.network(
+                      entry.file_url,
                     ),
                   ),
                 )
