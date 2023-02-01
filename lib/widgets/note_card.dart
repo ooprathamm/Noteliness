@@ -51,7 +51,7 @@ class NoteCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: imageProvider,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
                             ),
                       ),
                     ),
