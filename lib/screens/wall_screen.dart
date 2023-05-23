@@ -20,7 +20,8 @@ class WallScreen extends StatefulWidget{
 
 class _WallScreenState extends State<WallScreen> {
   Future<List<wall_entry>>? notes;
-  TextEditingController _searchTextController = TextEditingController();
+  bool isSearchBarVisible = false;
+  String searchString ='';
   Widget myMainAppBar() {
     return Container(
       padding: const EdgeInsets.all(20),
@@ -38,7 +39,9 @@ class _WallScreenState extends State<WallScreen> {
               MyButton(
                 icon: const Icon(Icons.search_outlined),
                 click: () {
-
+                  setState(() {
+                    isSearchBarVisible = !isSearchBarVisible;
+                  });
                 },
               ),
               const SizedBox(
@@ -60,12 +63,15 @@ class _WallScreenState extends State<WallScreen> {
   }
 
   Widget roundedSearchInput() {
+
     return Container(
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 16),
       padding: const EdgeInsets.all(14),
       child: TextField(
-        controller: _searchTextController,
         onChanged: (searchedNotes) {
+          setState(() {
+            searchString = searchedNotes;
+          });
         },
         style: GoogleFonts.nunito(
             color: myColors.White,
@@ -75,7 +81,9 @@ class _WallScreenState extends State<WallScreen> {
         decoration: InputDecoration(
           suffixIcon: IconButton(
             onPressed: () {
-
+              setState(() {
+                isSearchBarVisible=!isSearchBarVisible;
+              });
             },
             icon: const Icon(
               Icons.clear,
@@ -127,14 +135,25 @@ class _WallScreenState extends State<WallScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            myMainAppBar(),
+            isSearchBarVisible?roundedSearchInput():myMainAppBar(),
             FutureBuilder(
-              future: notes as Future<List<wall_entry>>,
-              builder: (BuildContext context, AsyncSnapshot<List<wall_entry>> notes) {
-                if (notes.hasData) {
-                  if (_searchTextController.text.isNotEmpty) {
+              future: notes,
+              builder: (BuildContext context, AsyncSnapshot<List<wall_entry>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const MyProgressBar();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                    } else {
+                  final List<wall_entry> filteredNotes = snapshot.data!.where((
+                      note) {
+                    return note.title.toLowerCase().contains(searchString
+                        .toLowerCase());
+                  }).toList();
+
+                  if (filteredNotes.isEmpty) {
                     return const NoteNotFound();
-                  } else {
+                  }
+                  else {
                     return Expanded(
                       child: RefreshIndicator(
                         backgroundColor: myColors.Grey,
@@ -145,20 +164,19 @@ class _WallScreenState extends State<WallScreen> {
                           });
                         },
                         child: ListView.builder(
-                          itemCount: notes.data?.length,
+                          itemCount: filteredNotes.length,
                           physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
                           shrinkWrap: true,
                           itemBuilder: (BuildContext context, int index) {
-                            var reversedList = notes.data?.reversed.toList();
-                            return NoteCard(entry: reversedList![index]);
+                            var reversedList = filteredNotes.reversed.toList();
+                            return NoteCard(entry: reversedList[index]);
                           },
                         ),
                       ),
                     );
                   }
-                } else {
-                  return const MyProgressBar();
                 }
               },
             ),
