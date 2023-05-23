@@ -83,6 +83,7 @@ class _WallScreenState extends State<WallScreen> {
             onPressed: () {
               setState(() {
                 isSearchBarVisible=!isSearchBarVisible;
+                searchString = "";
               });
             },
             icon: const Icon(
