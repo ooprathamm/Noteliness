@@ -28,10 +28,13 @@ class _WallScreenState extends State<WallScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "Notes",
-            style: GoogleFonts.nunito(
-                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 43),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, 'nav'),
+            child: Text(
+              "Notes",
+              style: GoogleFonts.nunito(
+                  color: Colors.white, fontWeight: FontWeight.w500, fontSize: 43),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

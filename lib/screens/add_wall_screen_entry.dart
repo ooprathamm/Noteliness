@@ -5,12 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 
 import '../constants/colors.dart';
-import '../widgets/appbar.dart';
 import '../widgets/floating_button.dart';
-import '../widgets/info_dialogue.dart';
-import '../widgets/my_dialog.dart';
-import '../widgets/text_field.dart';
-import 'package:noteliness/model/wall_entry.dart';
 import '../screens/preview.dart';
 
 class addWallScreenEntry extends StatelessWidget{
