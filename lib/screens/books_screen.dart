@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/colors.dart';
 import '../widgets/appbar.dart';
-import '../widgets/info_dialogue.dart';
 
 class BooksScreen extends StatefulWidget{
   @override
@@ -12,41 +10,6 @@ class BooksScreen extends StatefulWidget{
 
 class _BooksScreenState extends State<BooksScreen>{
 
-  Widget myMainAppBar() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'nav'),
-            child: Text(
-              "Books",
-              style: GoogleFonts.nunito(
-                  color: Colors.white, fontWeight: FontWeight.w500, fontSize: 43),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(
-                width: 20,
-              ),
-              MyButton(
-                icon: const Icon(Icons.info_outline_rounded),
-                click: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => const MyInfoDialog());
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,9 +17,9 @@ class _BooksScreenState extends State<BooksScreen>{
       body: SafeArea(
         child: Column(
           children: [
-            myMainAppBar(),
+            MyAppBar(Title: "Books"),
             Center(
-              child: Text("Attendance Screen",style: TextStyle(color: myColors.White),),
+              child: Text("Books Screen",style: TextStyle(color: myColors.White),),
             )
           ],
         ),

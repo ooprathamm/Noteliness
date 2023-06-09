@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../widgets/info_dialogue.dart';
 import '../constants/colors.dart';
 
 class MyAppBar extends StatelessWidget {
-  final VoidCallback saveclk;
+  final String Title;
 
-  const MyAppBar({super.key, required this.saveclk});
+  const MyAppBar({required this.Title});
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +16,29 @@ class MyAppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          MyButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded),
-            click: () => Navigator.maybePop(context),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, 'nav'),
+            child: Text(
+              Title,
+              style: GoogleFonts.nunito(
+                  color: Colors.white, fontWeight: FontWeight.w500, fontSize: 43),
+            ),
           ),
-          const SizedBox(
-            width: 20,
-          ),
-          MyButton(
-            icon: const Icon(Icons.save_outlined),
-            click: saveclk,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(
+                width: 20,
+              ),
+              MyButton(
+                icon: const Icon(Icons.info_outline_rounded),
+                click: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => const MyInfoDialog());
+                },
+              ),
+            ],
           ),
         ],
       ),
