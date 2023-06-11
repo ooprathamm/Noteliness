@@ -20,7 +20,7 @@ class _AttendanceScreenState extends State<AttendanceScreen>{
               MyAppBar(Title: "Attendance"),
               Center(
                 child: Text("Attendance Screen",style: TextStyle(color: myColors.White),),
-              )
+              ),
             ],
           ),
       ),

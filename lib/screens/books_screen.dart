@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 import '../widgets/appbar.dart';
+import '../model/books_entry.dart';
 
 class BooksScreen extends StatefulWidget{
   @override
@@ -9,7 +10,7 @@ class BooksScreen extends StatefulWidget{
 }
 
 class _BooksScreenState extends State<BooksScreen>{
-
+  Future<List<books_entry>>? books;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +19,8 @@ class _BooksScreenState extends State<BooksScreen>{
         child: Column(
           children: [
             MyAppBar(Title: "Books"),
-            Center(
-              child: Text("Books Screen",style: TextStyle(color: myColors.White),),
+            FutureBuilder(
+              future: books,
             )
           ],
         ),

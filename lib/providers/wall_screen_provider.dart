@@ -18,6 +18,6 @@ class wallScreenProvider extends ChangeNotifier{
   }
 
   Future<List<wall_entry>> getEntries() async {
-    return await service.retrieveEntries();
+    return await service.retrieveWallEntries();
   }
 }

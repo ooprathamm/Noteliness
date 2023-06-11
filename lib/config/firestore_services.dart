@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import '../model/wall_entry.dart';
+import '../model/books_entry.dart';
 
 class DatabaseServices{
 
@@ -12,7 +13,7 @@ class DatabaseServices{
     });
   }
 
-  Future<List<wall_entry>> retrieveEntries() async {
+  Future<List<wall_entry>> retrieveWallEntries() async {
    var snapshot = await _db.collection('wall_entries').doc('wall_entries_doc').get();
    Map<String,dynamic> data = snapshot.data()!;
    List<dynamic> entriesData = data['wallEntries'];
@@ -22,5 +23,17 @@ class DatabaseServices{
      entries.add(element);
    }
    return entries;
+  }
+  
+  Future<List<books_entry>> retrieveBookEntries() async {
+    var snapshot = await _db.collection('books').doc('books_doc').get();
+    Map<String,dynamic> data = snapshot.data()!;
+    List<dynamic> entriesData = data['bookEntries'];
+    List<books_entry> entries = [];
+    for (var entry in entriesData){
+      books_entry element = books_entry.fromMap(entry);
+      entries.add(element);
+    }
+    return entries;
   }
 }
