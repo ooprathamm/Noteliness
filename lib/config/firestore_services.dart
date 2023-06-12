@@ -7,7 +7,7 @@ class DatabaseServices{
 
   final FirebaseFirestore _db =FirebaseFirestore.instance;
 
-  Future<void> addEntry(wall_entry entry) async {
+  Future<void> addWallEntry(wall_entry entry) async {
     await _db.collection("wall_entries").doc('wall_entries_doc').update({
       "wallEntries" : FieldValue.arrayUnion([entry.toMap()])
     });
@@ -26,7 +26,7 @@ class DatabaseServices{
   }
   
   Future<List<books_entry>> retrieveBookEntries() async {
-    var snapshot = await _db.collection('books').doc('books_doc').get();
+    var snapshot = await _db.collection('book_entries').doc('books_doc').get();
     Map<String,dynamic> data = snapshot.data()!;
     List<dynamic> entriesData = data['bookEntries'];
     List<books_entry> entries = [];

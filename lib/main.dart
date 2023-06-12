@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:noteliness/providers/books_screen_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../config/router.dart';
@@ -20,6 +21,7 @@ class _Noteliness extends StatelessWidget {
     return MultiProvider(
         providers:[
           ChangeNotifierProvider(create: (_) => wallScreenProvider()),
+          ChangeNotifierProvider(create: (_) => bookScreenProvider())
         ],
     child: const MaterialApp(
       debugShowCheckedModeBanner: false,

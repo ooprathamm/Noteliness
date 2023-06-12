@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:full_screen_image_null_safe/full_screen_image_null_safe.dart';
-import 'package:insta_image_viewer/insta_image_viewer.dart';
-import 'package:noteliness/model/wall_entry.dart';
-import 'package:noteliness/widgets/progress_bar.dart';
 
+import '../model/wall_entry.dart';
+import '../widgets/progress_bar.dart';
 import '../constants/colors.dart';
 
 class NoteCard extends StatelessWidget {

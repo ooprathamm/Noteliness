@@ -13,7 +13,7 @@ class wallScreenProvider extends ChangeNotifier{
   wall_entry get entry => _entry;
 
   Future<bool> addEntry({required wall_entry entry}) async {
-    service.addEntry(entry);
+    service.addWallEntry(entry);
     return true;
   }
 
