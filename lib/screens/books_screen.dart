@@ -127,50 +127,57 @@ class _BooksScreenState extends State<BooksScreen>{
         child: Column(
           children: [
             myMainAppBar(),
-            FutureBuilder(
-              future: books,
-              builder: (BuildContext context, AsyncSnapshot<List<books_entry>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const MyProgressBar();
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  final List<books_entry> filteredBooks = snapshot.data!.where((
-                      book) {
-                    return book.book_name.toLowerCase().contains(searchString
-                        .toLowerCase());
-                  }).toList();
+            Expanded(
+              child: FutureBuilder(
+                future: books,
+                builder: (BuildContext context, AsyncSnapshot<List<books_entry>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const MyProgressBar();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    final List<books_entry> filteredBooks = snapshot.data!.where((
+                        book) {
+                      return book.book_name.toLowerCase().contains(searchString
+                          .toLowerCase());
+                    }).toList();
 
-                  if (filteredBooks.isEmpty) {
-                    return const NoteNotFound();
-                  }
-                  else {
-                    return Expanded(
-                      child: RefreshIndicator(
-                        backgroundColor: myColors.Grey,
-                        color: myColors.White,
-                        onRefresh: () async {
-                          setState(() {
+                    if (filteredBooks.isEmpty) {
+                      return const NoteNotFound();
+                    }
+                    else {
+                      return Expanded(
+                        child: RefreshIndicator(
+                          backgroundColor: myColors.Grey,
+                          color: myColors.White,
+                          onRefresh: () async {
+                            setState(() {
 
-                          });
-                        },
-                        child: ListView.builder(
-                          //gridDelegate: null,
-                          itemCount: filteredBooks.length,
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
-                          shrinkWrap: true,
-                          itemBuilder: (BuildContext context, int index) {
-                            var reversedList = filteredBooks.reversed.toList();
-                            return BookCard(entry: reversedList[index]);
+                            });
                           },
+                          child: GridView.builder(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, // Set the number of columns you want
+                              mainAxisSpacing: 10.0,
+                              crossAxisSpacing: 10.0,
+                              childAspectRatio: 0.7, // Adjust the aspect ratio based on your requirement
+                            ),
+                            itemCount: filteredBooks.length,
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              var reversedList = filteredBooks.reversed.toList();
+                              return BookCard(entry: reversedList[index]);
+                            },
+                          ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   }
-                }
-              },
+                },
+              ),
             ),
           ],
         ),
