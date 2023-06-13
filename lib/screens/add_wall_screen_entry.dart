@@ -31,6 +31,7 @@ class addWallScreenEntry extends StatelessWidget{
               children: [
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
                 MyFloatingButton(
+                  color: myColors.DarkGrey,
                   icon: const Icon(Icons.camera_alt),
                   clk: () async {
                     final XFile? image = await _imgPicker.pickImage(source: ImageSource.camera);
@@ -42,6 +43,7 @@ class addWallScreenEntry extends StatelessWidget{
                 ),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
                 MyFloatingButton(
+                  color: myColors.DarkGrey,
                   icon: const Icon(Icons.file_copy),
                   clk: () async {
                     FilePickerResult? result = await FilePicker.platform.pickFiles();

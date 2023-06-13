@@ -135,6 +135,7 @@ class _WallScreenState extends State<WallScreen> {
           Icons.add,
           color: Colors.white,
         ),
+        color: myColors.DarkGrey,
       ),
       body: SafeArea(
         child: Column(

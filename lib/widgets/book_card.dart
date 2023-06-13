@@ -1,8 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_file_view/flutter_file_view.dart';
+import 'package:lecle_downloads_path_provider/lecle_downloads_path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:path/path.dart' as path;
 
-import '../widgets/progress_bar.dart';
 import '../model/books_entry.dart';
 import '../constants/colors.dart';
 
@@ -13,7 +14,6 @@ class BookCard extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    FileViewController? controller;
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
       child: Card(
@@ -45,15 +45,35 @@ class BookCard extends StatelessWidget{
                           canShowScrollStatus: false),
                     ),
                   ),
-                  Padding(padding: const EdgeInsets.fromLTRB(0, 10, 0, 0)),
-                  Text(
-                    entry.book_name,
-                    softWrap: true,
-                    style: const TextStyle(
-                      color: myColors.White,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                  const Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                        entry.book_name,
+                        softWrap: true,
+                        style: const TextStyle(
+                          color: myColors.White,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                     ),
+                      ),
+                      IconButton(
+                          onPressed: () async {
+                            final directory = await DownloadsPath.downloadsDirectory();
+                            String savePath = path.join(
+                                directory!.path,'${entry.book_name.replaceAll(' ', '').split('').join()}.pdf');
+                            try {
+                              Dio dio = Dio();
+                              await dio.download(entry.book_url, savePath);
+                            } catch (error) {
+                              print('Error downloading file: $error');
+                            }
+                          },
+                          icon: const Icon(Icons.download),
+                      )
+                    ],
                   ),
                 ]
             ),
@@ -62,5 +82,4 @@ class BookCard extends StatelessWidget{
       ),
     );
   }
-  
 }

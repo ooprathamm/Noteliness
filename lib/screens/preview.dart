@@ -9,6 +9,8 @@ import 'package:path/path.dart';
 
 import '../constants/colors.dart';
 import '../widgets/text_field.dart';
+import '../widgets/floating_button.dart';
+
 class Preview extends StatefulWidget{
   final File file;
   const Preview({super.key, required this.file});
@@ -61,8 +63,9 @@ class _PreviewState extends State<Preview> {
             Row(
               children: [
                 const Padding(padding: EdgeInsets.fromLTRB(90,0,0,0)),
-                MyCustomFloatingButton1(
+                MyFloatingButton(
                     icon:  _isButtonDisabled ?const Icon(Icons.cloud_upload):const Icon(Icons.done),
+                    color: myColors.Green,
                     clk:  _isButtonDisabled ?(){}:() async {
 
                       setState(() {
@@ -87,8 +90,9 @@ class _PreviewState extends State<Preview> {
                       Navigator.pushNamed(context, 'wall_screen');
                 }),
                 const Padding(padding: EdgeInsets.fromLTRB(25,0,0,0)),
-                MyCustomFloatingButton2(
+                MyFloatingButton(
                     icon: const Icon(Icons.cancel),
+                    color: myColors.Red,
                     clk: () {
                      Navigator.pushNamed(context, 'wall_screen');
                     })
@@ -96,74 +100,6 @@ class _PreviewState extends State<Preview> {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MyCustomFloatingButton1 extends StatelessWidget {
-  final VoidCallback clk;
-  final Icon icon;
-
-  const MyCustomFloatingButton1({super.key, required this.clk, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50.0,
-      height: 50.0,
-      decoration: const BoxDecoration(
-          color: myColors.DarkGrey,
-          borderRadius: BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black,
-              spreadRadius: 1,
-              blurRadius: 8,
-              offset: Offset(-2, 1),
-            )
-          ]),
-      child: FloatingActionButton(
-        backgroundColor: myColors.Green,
-        elevation: 8,
-        onPressed: clk,
-        child: icon,
-      ),
-    );
-  }
-}
-
-class MyCustomFloatingButton2 extends StatelessWidget {
-  final VoidCallback clk;
-  final Icon icon;
-
-  const MyCustomFloatingButton2({super.key, required this.clk, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 50.0,
-      height: 50.0,
-      decoration: const BoxDecoration(
-          color: myColors.DarkGrey,
-          borderRadius: BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black,
-              spreadRadius: 1,
-              blurRadius: 8,
-              offset: Offset(-2, 1),
-            )
-          ]),
-      child: FloatingActionButton(
-        backgroundColor: myColors.Red,
-        elevation: 8,
-        onPressed: clk,
-        child: icon,
       ),
     );
   }
